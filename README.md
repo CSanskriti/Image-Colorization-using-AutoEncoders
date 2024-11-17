@@ -1,45 +1,78 @@
-# Image-Colorization-using-AutoEncoders
+Here's the updated GitHub README to reflect the use of the **CIFAR-10 dataset** and include additional details about the project. Make sure to upload the images (`workflow.png`, `architecture.png`, `loss_curve.png`) to your repository to enhance the visual presentation.
 
-This project implements an **image colorization** model using a **Convolutional Autoencoder** with residual blocks in **TensorFlow/Keras**. The model is designed to take grayscale images as input and output colorized versions, making it a great tool for restoring or enhancing old black-and-white photos.
+---
 
-## Model Architecture
+# 🌈 Image Colorization using AutoEncoders
 
-The model architecture is based on a **Convolutional Autoencoder** structure, consisting of:
+This project implements an **image colorization** model using a **Convolutional Autoencoder** enhanced with residual blocks in **TensorFlow/Keras**. The model is designed to take grayscale images as input and generate colorized versions, making it a valuable tool for restoring or enhancing old black-and-white photos.
+
+## 📑 Project Overview
+
+The goal of this project is to develop a deep learning model that can automatically colorize grayscale images using the **CIFAR-10 dataset**. The model leverages the powerful feature extraction capabilities of convolutional neural networks and residual blocks to produce realistic colorization of images.
+
+### Workflow
+![Workflow](workflow.png)
+
+## 📁 Dataset
+
+The **CIFAR-10 dataset** was used for training and testing the model. This dataset consists of 60,000 color images divided into 10 classes, with each image having a resolution of 32x32 pixels. For this project, the images were converted to grayscale for the model's input, and the original color images served as the target output.
+
+### Dataset Details:
+- **Training Samples**: 50,000 grayscale-color pairs
+- **Testing Samples**: 10,000 grayscale-color pairs
+- **Image Dimensions**: `(32, 32)`
+
+## 🧠 Model Architecture
+
+The model architecture is based on a **Convolutional Autoencoder** with residual connections to improve feature extraction and colorization performance.
+
+### Model Components:
 
 1. **Encoder**:
-   - Uses several convolutional layers with ReLU activation.
-   - Incorporates **Batch Normalization** for faster convergence and stability.
+   - Uses convolutional layers with **ReLU activation** for feature extraction.
+   - Includes **Batch Normalization** for improved training stability.
    - Downsamples the input image using **MaxPooling** layers.
 
 2. **Residual Block**:
-   - Enhances feature extraction using a residual connection.
-   - Helps in learning complex patterns and mitigates the vanishing gradient problem.
+   - Enhances feature extraction using residual connections.
+   - Helps the model learn complex patterns and mitigates the vanishing gradient problem.
 
 3. **Decoder**:
    - Upsamples the encoded features back to the original image size.
    - Uses convolutional layers to reconstruct the color channels.
-   - Outputs an RGB image with values normalized using a **tanh** activation function.
+   - Applies a **tanh activation** function in the output layer to generate RGB values.
 
-### Model Summary
-
-- **Input**: Grayscale image of shape `(32, 32, 1)`
-- **Output**: Colorized image of shape `(32, 32, 3)`
+### Model Summary:
+- **Input Shape**: `(32, 32, 1)` (Grayscale image)
+- **Output Shape**: `(32, 32, 3)` (Colorized RGB image)
 - **Loss Function**: Mean Squared Error (MSE)
 - **Optimizer**: Adam
 
-## Requirements
+![Model Architecture](architecture.png)
+
+## 🔧 Requirements
+
+Ensure you have the following dependencies installed:
 
 - Python 3.x
 - TensorFlow 2.x
 - NumPy
 - Matplotlib (for visualization)
 
-## Training
+You can install the required packages using:
+```bash
+pip install tensorflow numpy matplotlib
+```
 
-The model was trained using a dataset of grayscale images (`X_train_gray`) and their corresponding color images (`X_train`).
+## 🚀 Training the Model
+
+The model was trained using the following setup:
 
 ```python
-# Training the model
+# Compile the model
+autoencoder.compile(optimizer='adam', loss='mse', metrics=['mae'])
+
+# Train the model
 history = autoencoder.fit(
     X_train_gray, X_train,
     epochs=100,
@@ -49,34 +82,27 @@ history = autoencoder.fit(
 )
 ```
 
-### Callbacks Used
-- **ModelCheckpoint**: Saves the best model during training.
-- **EarlyStopping**: Stops training if the validation loss does not improve for a specified number of epochs.
-- **ReduceLROnPlateau**: Reduces the learning rate if validation loss plateaus.
+### Callbacks Used:
+- **ModelCheckpoint**: Saves the best model during training based on validation loss.
+- **EarlyStopping**: Stops training if the validation loss does not improve for 15 consecutive epochs.
+- **ReduceLROnPlateau**: Reduces the learning rate by a factor of 0.5 if validation loss plateaus.
 
-## Results
+## 📊 Results and Performance
 
-- Achieved a Peak Signal-to-Noise Ratio (PSNR) of **~22.65**, which shows a good balance between the original and colorized images.
-- The training and validation loss history is available for visualization to assess model performance over epochs.
+- **Peak Signal-to-Noise Ratio (PSNR)**: Achieved a score of **~22.65**, indicating good image quality.
+- **Mean Absolute Error (MAE)**: Low error value, suggesting accurate colorization.
+- The model demonstrated stable convergence of training and validation losses.
 
-## Usage
+### Loss Curve
+The graph below shows the model's training and validation loss over 100 epochs:
 
-To run the model for your own grayscale images:
-1. Load your image data.
-2. Preprocess it to match the input shape `(32, 32, 1)`.
-3. Use the `autoencoder.predict()` method to get colorized images.
+![Loss Curve](loss_curve.png)
 
-```python
-# Example prediction
-colorized_images = autoencoder.predict(grayscale_images)
-```
-
-## How to Plot Training and Validation Loss
+To visualize the training and validation loss, use the following code:
 
 ```python
 import matplotlib.pyplot as plt
 
-# Plot training & validation loss
 plt.figure(figsize=(10, 5))
 plt.plot(history.history['loss'], label='Training Loss')
 plt.plot(history.history['val_loss'], label='Validation Loss')
@@ -84,9 +110,28 @@ plt.title('Model Loss Over Epochs')
 plt.xlabel('Epochs')
 plt.ylabel('Loss')
 plt.legend()
-plt.grid()
+plt.grid(True)
 plt.show()
 ```
 
-## License
-This project is open-source and available for educational purposes.
+## 📂 Usage
+
+To use the trained model for colorizing your own grayscale images:
+
+1. Load your grayscale images and preprocess them to shape `(32, 32, 1)`.
+2. Use the `autoencoder.predict()` function to generate colorized outputs.
+
+```python
+# Example prediction
+colorized_images = autoencoder.predict(grayscale_images)
+```
+
+## 🔍 Future Enhancements
+
+- Integrating **Generative Adversarial Networks (GANs)** for more realistic colorization.
+- Experimenting with **perceptual loss** using pre-trained networks like VGG to enhance colorization quality.
+- Extending the model to support higher-resolution images for improved detail.
+
+## 🤝 Contributing
+
+Contributions are welcome! If you have suggestions for improvements or find any issues, feel free to submit a pull request or report an issue.
