@@ -7,7 +7,7 @@ This project implements an **image colorization** model using a **Convolutional 
 The goal of this project is to develop a deep learning model that can automatically colorize grayscale images using the **CIFAR-10 dataset**. The model leverages the powerful feature extraction capabilities of convolutional neural networks and residual blocks to produce realistic colorization of images.
 
 ### Workflow
-![Workflow](Work Flow.png)
+![Alt Text](WorkFlow.png)
 
 ## 📁 Dataset
 
