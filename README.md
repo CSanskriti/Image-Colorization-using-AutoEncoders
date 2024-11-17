@@ -1,7 +1,3 @@
-Here's the updated GitHub README to reflect the use of the **CIFAR-10 dataset** and include additional details about the project. Make sure to upload the images (`workflow.png`, `architecture.png`, `loss_curve.png`) to your repository to enhance the visual presentation.
-
----
-
 # 🌈 Image Colorization using AutoEncoders
 
 This project implements an **image colorization** model using a **Convolutional Autoencoder** enhanced with residual blocks in **TensorFlow/Keras**. The model is designed to take grayscale images as input and generate colorized versions, making it a valuable tool for restoring or enhancing old black-and-white photos.
