@@ -45,7 +45,8 @@ The model architecture is based on a **Convolutional Autoencoder** with residual
 - **Loss Function**: Mean Squared Error (MSE)
 - **Optimizer**: Adam
 
-![Model Architecture](architecture.png)
+![Model Architecture](https://github.com/user-attachments/assets/dc96f908-bf1b-4f5e-9b84-b0fb7a55fdd9)
+
 
 ## 🔧 Requirements
 
@@ -93,7 +94,8 @@ history = autoencoder.fit(
 ### Loss Curve
 The graph below shows the model's training and validation loss over 100 epochs:
 
-![Loss Curve](loss_curve.png)
+![Loss Curve](https://github.com/user-attachments/assets/bf9ea32a-5056-4754-8760-6d5a3dba6de3)
+
 
 To visualize the training and validation loss, use the following code:
 
